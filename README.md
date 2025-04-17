@@ -34,59 +34,6 @@ git clone https://github.com/<your-username>/<your-repo>.git
 cd <your-repo>
 ```
 
----
-
-## 🗃 Project Structure
-```
-<repo>/
-├── data/                   # raw and processed images
-├── models/                 # saved generator models
-├── notebooks/              # Jupyter notebooks
-├── src/                    # source scripts
-│   ├── data_utils.py       # download & preprocess data
-│   ├── gan.py              # generator & discriminator definitions
-│   ├── train.py            # training loop
-│   ├── inference.py        # enhance images
-│   └── evolutionary_opt.py # hyperparameter search
-├── requirements.txt
-└── README.md
-```
-
----
-
-## 🚀 Usage
-
-1. **Download & preprocess data**
-   ```bash
-   python src/data_utils.py --download --preprocess
-   ```
-   - Downloads two public MRI datasets (LGG and Brain Tumor).
-   - Merges into `data/combined_data/`, converts to 256×256 grayscale, normalizes, and balances classes via augmentation.
-
-2. **Train the GAN**
-   ```bash
-   python src/train.py --epochs 20 --batch_size 8
-   ```
-   - Builds a Pix2Pix GAN (U‑Net generator + PatchGAN discriminator).
-   - Uses adversarial (BCE) and L1 losses.
-   - Saves model checkpoints in `models/`.
-
-3. **Hyperparameter Optimization (optional)**
-   ```bash
-   python src/evolutionary_opt.py --generations 5 --pop_size 10
-   ```
-   - Evolves generator hyperparameters (filters, kernel size, dropout).
-   - Selects the best configuration based on reconstruction fitness.
-
-4. **Enhance a New Image**
-   ```bash
-   python src/inference.py --input path/to/image.jpg --output path/to/output.jpg
-   ```
-   - Loads the trained generator.
-   - Applies the model to your input MRI scan.
-   - Post‑processes output with CLAHE for contrast enhancement.
-
----
 
 ## 📊 Evaluation
 - Quantitative metrics: **PSNR**, **SSIM** (scripts in `src/train.py` or notebooks).
